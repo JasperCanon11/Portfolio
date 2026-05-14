@@ -1,996 +1,951 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Jasper Canon | Software Developer</title>
-  <style>
-    :root {
-      --bg: #0b1120;
-      --bg-soft: #111827;
-      --card: rgba(17, 24, 39, 0.72);
-      --line: rgba(148, 163, 184, 0.18);
-      --text: #e5eefc;
-      --muted: #9fb0cc;
-      --accent: #60a5fa;
-      --accent-2: #22d3ee;
-      --white: #ffffff;
-      --shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
-      --radius: 22px;
-      --max: 1180px;
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-      background:
-        radial-gradient(circle at top left, rgba(96, 165, 250, 0.15), transparent 30%),
-        radial-gradient(circle at top right, rgba(34, 211, 238, 0.12), transparent 28%),
-        linear-gradient(180deg, #08101d 0%, #0b1120 100%);
-      color: var(--text);
-      line-height: 1.6;
-    }
-
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
-
-    img {
-      max-width: 100%;
-      display: block;
-    }
-
-    .container {
-      width: min(92%, var(--max));
-      margin: 0 auto;
-    }
-
-    .glass {
-      background: var(--card);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border: 1px solid var(--line);
-      box-shadow: var(--shadow);
-    }
-
-    /* NAV */
-    .nav-wrap {
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      padding: 18px 0;
-      background: rgba(8, 16, 29, 0.45);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-    }
-
-    nav {
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      padding: 16px 22px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .brand {
-      font-size: 1.1rem;
-      font-weight: 700;
-      letter-spacing: 0.4px;
-      color: var(--white);
-    }
-
-    .brand span {
-      color: var(--accent);
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 22px;
-      flex-wrap: wrap;
-    }
-
-    .nav-links a {
-      color: var(--muted);
-      font-size: 0.96rem;
-      transition: 0.25s ease;
-    }
-
-    .nav-links a:hover {
-      color: var(--white);
-    }
-
-    /* HERO */
-    .hero {
-      padding: 68px 0 34px;
-    }
-
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      gap: 26px;
-      align-items: stretch;
-    }
-
-    .hero-main,
-    .hero-side {
-      border-radius: 28px;
-      padding: 34px;
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 8px 14px;
-      border-radius: 999px;
-      border: 1px solid rgba(96, 165, 250, 0.25);
-      background: rgba(96, 165, 250, 0.08);
-      color: #bfdbfe;
-      font-size: 0.9rem;
-      margin-bottom: 18px;
-    }
-
-    .hero h1 {
-      font-size: clamp(2.2rem, 5vw, 4.5rem);
-      line-height: 1.05;
-      margin-bottom: 16px;
-      letter-spacing: -1.6px;
-    }
-
-    .hero h1 .grad {
-      background: linear-gradient(90deg, var(--accent), var(--accent-2));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .hero-role {
-      font-size: 1.06rem;
-      color: #c8d7ef;
-      margin-bottom: 14px;
-      font-weight: 700;
-    }
-
-    .hero-desc {
-      color: var(--muted);
-      max-width: 720px;
-      font-size: 1rem;
-      margin-bottom: 26px;
-    }
-
-    .hero-actions {
-      display: flex;
-      gap: 14px;
-      flex-wrap: wrap;
-      margin-bottom: 28px;
-    }
-
-    .btn {
-      padding: 13px 20px;
-      border-radius: 14px;
-      font-weight: 700;
-      transition: 0.25s ease;
-      border: 1px solid transparent;
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .btn-primary {
-      background: linear-gradient(90deg, var(--accent), var(--accent-2));
-      color: #07111d;
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      opacity: 0.96;
-    }
-
-    .btn-secondary {
-      border-color: var(--line);
-      color: var(--text);
-      background: rgba(255,255,255,0.02);
-    }
-
-    .btn-secondary:hover {
-      border-color: rgba(96, 165, 250, 0.45);
-      color: var(--white);
-      transform: translateY(-2px);
-    }
-
-    .hero-metrics {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-    }
-
-    .metric {
-      padding: 16px;
-      border-radius: 18px;
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,0.02);
-    }
-
-    .metric h3 {
-      font-size: 1.35rem;
-      margin-bottom: 4px;
-      color: var(--white);
-    }
-
-    .metric p {
-      color: var(--muted);
-      font-size: 0.92rem;
-    }
-
-    .hero-side {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      gap: 18px;
-    }
-
-    .code-box {
-      border-radius: 20px;
-      border: 1px solid var(--line);
-      overflow: hidden;
-      background: #09101d;
-    }
-
-    .code-top {
-      display: flex;
-      gap: 8px;
-      padding: 14px 16px;
-      border-bottom: 1px solid var(--line);
-      background: rgba(255,255,255,0.02);
-    }
-
-    .dot {
-      width: 11px;
-      height: 11px;
-      border-radius: 50%;
-      background: #334155;
-    }
-
-    .dot:nth-child(1) { background: #fb7185; }
-    .dot:nth-child(2) { background: #fbbf24; }
-    .dot:nth-child(3) { background: #4ade80; }
-
-    .code-content {
-      padding: 18px 18px 20px;
-      font-family: Consolas, monospace;
-      font-size: 0.93rem;
-      color: #bfdbfe;
-      min-height: 230px;
-      white-space: pre-line;
-    }
-
-    .mini-card {
-      border: 1px solid var(--line);
-      border-radius: 20px;
-      padding: 20px;
-      background: rgba(255,255,255,0.02);
-    }
-
-    .mini-card h3 {
-      margin-bottom: 8px;
-      color: var(--white);
-      font-size: 1rem;
-    }
-
-    .mini-card p {
-      color: var(--muted);
-      font-size: 0.95rem;
-    }
-
-    /* SECTIONS */
-    section.section {
-      padding: 34px 0;
-    }
-
-    .section-head {
-      display: flex;
-      align-items: end;
-      justify-content: space-between;
-      gap: 20px;
-      margin-bottom: 22px;
-    }
-
-    .section-title {
-      font-size: clamp(1.6rem, 3vw, 2.4rem);
-      letter-spacing: -0.8px;
-      margin-bottom: 6px;
-    }
-
-    .section-sub {
-      color: var(--muted);
-      max-width: 700px;
-    }
-
-    /* ABOUT */
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 24px;
-    }
-
-    .about-card,
-    .focus-card {
-      padding: 28px;
-      border-radius: 24px;
-    }
-
-    .about-card p,
-    .focus-card li {
-      color: var(--muted);
-    }
-
-    .focus-card ul {
-      list-style: none;
-      display: grid;
-      gap: 12px;
-    }
-
-    .focus-card li {
-      padding: 14px 16px;
-      border-radius: 16px;
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,0.02);
-    }
-
-    /* STACK */
-    .stack-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 18px;
-    }
-
-    .stack-card {
-      padding: 24px;
-      border-radius: 22px;
-    }
-
-    .stack-card h3 {
-      margin-bottom: 12px;
-      color: var(--white);
-      font-size: 1rem;
-    }
-
-    .stack-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .tag {
-      padding: 9px 12px;
-      border-radius: 999px;
-      font-size: 0.9rem;
-      color: #d9e7fb;
-      background: rgba(96, 165, 250, 0.09);
-      border: 1px solid rgba(96, 165, 250, 0.18);
-    }
-
-    /* PROJECTS */
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 22px;
-    }
-
-    .project-card {
-      border-radius: 24px;
-      overflow: hidden;
-      transition: 0.28s ease;
-    }
-
-    .project-card:hover {
-      transform: translateY(-6px);
-    }
-
-    .project-image {
-      height: 240px;
-      background:
-        linear-gradient(135deg, rgba(96, 165, 250, 0.2), rgba(34, 211, 238, 0.08)),
-        #0a1322;
-      border-bottom: 1px solid var(--line);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #7dd3fc;
-      font-size: 1rem;
-      letter-spacing: 0.3px;
-      font-weight: 700;
-    }
-
-    .project-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .project-body {
-      padding: 24px;
-    }
-
-    .project-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: start;
-      gap: 16px;
-      margin-bottom: 10px;
-    }
-
-    .project-top h3 {
-      font-size: 1.2rem;
-      color: var(--white);
-    }
-
-    .project-type {
-      font-size: 0.82rem;
-      color: #bfe9ff;
-      padding: 7px 10px;
-      border-radius: 999px;
-      background: rgba(34, 211, 238, 0.08);
-      border: 1px solid rgba(34, 211, 238, 0.18);
-      white-space: nowrap;
-    }
-
-    .project-body p {
-      color: var(--muted);
-      margin-bottom: 14px;
-    }
-
-    .project-tech {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 16px;
-    }
-
-    .project-links {
-      display: flex;
-      gap: 14px;
-      flex-wrap: wrap;
-    }
-
-    .project-links a {
-      color: var(--accent);
-      font-weight: 700;
-    }
-
-    .project-links a:hover {
-      color: var(--white);
-    }
-
-    /* CONTACT */
-    .contact-card {
-      border-radius: 28px;
-      padding: 30px;
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 24px;
-      align-items: center;
-    }
-
-    .contact-text h2 {
-      font-size: 2rem;
-      margin-bottom: 10px;
-    }
-
-    .contact-text p {
-      color: var(--muted);
-      max-width: 650px;
-    }
-
-    .contact-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      justify-content: flex-end;
-    }
-
-    .contact-pill {
-      padding: 12px 16px;
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      color: var(--text);
-      background: rgba(255,255,255,0.02);
-      font-weight: 700;
-    }
-
-    .contact-pill:hover {
-      border-color: rgba(96, 165, 250, 0.42);
-      color: var(--white);
-    }
-
-    footer {
-      padding: 22px 0 40px;
-      color: #8091ab;
-      text-align: center;
-      font-size: 0.95rem;
-    }
-
-    /* Responsive */
-    @media (max-width: 1024px) {
-      .hero-grid,
-      .about-grid,
-      .stack-grid,
-      .projects-grid,
-      .contact-card {
-        grid-template-columns: 1fr;
-      }
-
-      .hero-metrics {
-        grid-template-columns: 1fr;
-      }
-
-      .contact-links {
-        justify-content: flex-start;
-      }
-    }
-
-    @media (max-width: 720px) {
-      .nav-links {
-        display: none;
-      }
-
-      .hero-main,
-      .hero-side,
-      .about-card,
-      .focus-card,
-      .stack-card,
-      .project-body,
-      .contact-card {
-        padding: 22px;
-      }
-
-      .hero {
-        padding-top: 34px;
-      }
-
-      .project-top {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-    }
-
-    .project-image-slider {
-  position: relative;
-  width: 100%;
-  height: 360px;
-  overflow: hidden;
-  background:
-    linear-gradient(135deg, rgba(96, 165, 250, 0.2), rgba(34, 211, 238, 0.08)),
-    #0a1322;
-  border-bottom: 1px solid var(--line);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Jasper Canon — Software Developer</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#0d0d0d;
+  --bg2:#111111;
+  --bg3:#161616;
+  --border:#242424;
+  --border-h:#333333;
+  --text:#e8e6e1;
+  --muted:#7a7670;
+  --hint:#3d3b38;
+  --white:#f5f3ee;
+  --green:#4ade80;
+  --green-p:rgba(74,222,128,0.07);
+  --green-b:rgba(74,222,128,0.15);
+  --code-bg:#0a0a0a;
+  --max:1120px;
+  --r:12px;
+  --rl:16px;
 }
 
-.project-image-slider img {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  display: none;
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box
 }
 
-.project-image-slider img.active {
-  display: block;
+html{
+  scroll-behavior:smooth
 }
 
-.slider-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(0,0,0,0.5);
-  border: none;
-  color: white;
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;
-  cursor: pointer;
+body{
+  font-family:'DM Sans',sans-serif;
+background:var(--bg);
+color:var(--text);
+line-height:1.65;
+font-size:15px;
+-webkit-font-smoothing:antialiased
 }
 
-.slider-btn.prev { left: 10px; }
-.slider-btn.next { right: 10px; }
-  </style>
+a{
+  text-decoration:none;
+  color:inherit
+}
+
+img{
+  max-width:100%;
+  display:block
+}
+
+.w{
+  width:min(93%,var(--max));
+  margin:0 auto
+}
+
+/* NAV */
+.nav{
+  position:sticky;
+  top:0;
+  z-index:200;
+  background:rgba(13,13,13,0.92);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border)
+}
+
+.ni{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:16px 0
+}
+
+.brand{
+  font-size:0.97rem;
+  font-weight:600;
+  letter-spacing:-0.2px;
+  color:var(--white)
+}
+
+.brand b{
+  color:var(--green);
+  font-weight:600
+}
+
+.nl{
+  display:flex;
+  gap:28px
+}
+
+.nl a{
+  font-size:0.855rem;
+  color:var(--muted);
+  transition:color 0.18s
+}
+
+.nl a:hover{
+  color:var(--white)
+}
+
+/* HERO */
+.hero{
+  padding:80px 0 60px
+}
+
+.hg{
+  display:grid;grid-template-columns:1fr 400px;
+  gap:36px;
+  align-items:start
+}
+
+.badge{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  font-size:0.78rem;
+  font-weight:500;
+  color:var(--green);
+  letter-spacing:0.3px;
+  background:var(--green-p);
+  border:1px solid var(--green-b);
+  padding:5px 13px;
+  border-radius:999px;
+  margin-bottom:24px
+}
+
+.bd{
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:var(--green);
+  animation:blink 2.2s ease-in-out infinite
+}
+
+@keyframes 
+blink{0%,100%{opacity:1}55%{opacity:0.25}}
+
+.hero h1{
+  font-size:clamp(2.2rem,4vw,3.7rem);
+  font-weight:600;
+  line-height:1.07;
+  letter-spacing:-2px;
+  margin-bottom:16px;
+  color:var(--white)
+}
+
+.hero h1 em{
+  font-style:normal;
+  color:var(--green)
+}
+
+.role{
+  font-family:'DM Mono',monospace;
+  font-size:0.79rem;
+  color:var(--muted);
+  margin-bottom:14px;
+  letter-spacing:0.3px
+}
+
+.hdesc{
+  font-size:0.93rem;
+  color:var(--muted);
+  max-width:540px;line-height:1.72;
+  margin-bottom:28px
+}
+
+.cta{
+  display:flex;gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:38px
+}
+
+.btn{
+  padding:10px 20px;
+  border-radius:var(--r);
+  font-size:0.855rem;
+  font-weight:500;cursor:pointer;
+  transition:all 0.18s;
+  display:inline-flex;
+  align-items:center;
+  gap:7px
+}
+
+.bs{
+  background:var(--green);
+  color:#050505;
+  border:1px solid var(--green)
+}
+
+.bs:hover{
+  background:#86efac
+}
+
+.bg{
+  background:transparent;
+  color:var(--text);
+  border:1px solid var(--border)
+}
+
+.bg:hover{
+  border-color:var(--border-h);
+  color:var(--white)
+}
+
+.mets{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  border:1px solid var(--border);
+  border-radius:var(--rl);
+  overflow:hidden;
+  background:var(--border);
+  gap:1px
+}
+
+.met{
+  background:var(--bg2);
+  padding:16px 18px
+}
+
+.met strong{
+  display:block;
+  font-size:0.95rem;
+  font-weight:600;
+  margin-bottom:3px;
+  letter-spacing:-0.3px;
+  color:var(--white)
+}
+
+.met span{
+  font-size:0.79rem;
+  color:var(--muted)
+}
+
+/* CODE CARD */
+.cc{
+  background:var(--code-bg);
+  border-radius:var(--rl);
+  overflow:hidden;
+  border:1px solid var(--border)
+}
+
+.cb{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:11px 16px;
+  border-bottom:1px solid var(--border);
+  background:rgba(255,255,255,0.02)
+}
+
+.cds{
+  display:flex;
+  gap:6px
+}
+
+.cd{
+  width:10px;
+  height:10px;
+  border-radius:50%
+}
+
+.cd:nth-child(1){
+  background:#ff5f57
+}
+
+  .cd:nth-child(2){
+    background:#ffc12f
+  }
+
+    .cd:nth-child(3){
+      background:#28c840
+    }
+
+.cf{
+  font-family:'DM Mono',monospace;
+  font-size:0.73rem;
+  color:#404040
+}
+
+.co{
+  padding:20px 22px 24px;
+  font-family:'DM Mono',monospace;
+  font-size:0.8rem;
+  line-height:1.95;
+  white-space:pre
+}
+
+/* Deluge syntax colors */
+.kw  { color: #82b0e0 }   /* keywords: void, if, for, return */
+.fn  { color: var(--green) }  /* built-in functions: info, input */
+.var { color: #e8e6e1 }   /* variable names */
+.st  { color: #a3c98a }   /* strings */
+.num { color: #e8b566 }   /* numbers */
+.cm  { color: #333830 }   /* comments */
+.op  { color: #7a9fcc }   /* operators: = + . */
+.br  { color: #666 }      /* brackets / braces */
+
+.wc{
+  margin-top:14px;
+  background:var(--bg2);
+  border:1px solid var(--border);
+  border-radius:var(--rl);
+  padding:18px 20px
+}
+
+.wc h4{
+  font-size:0.855rem;font-weight:600;
+  margin-bottom:5px;
+  color:var(--white)
+}
+
+.wc p{
+  font-size:0.84rem;
+  color:var(--muted);
+  line-height:1.65
+}
+
+/* DIVIDER */
+.dv{
+  border:none;
+  border-top:1px solid var(--border)
+}
+
+/* SECTIONS */
+section{
+  padding:58px 0
+}
+
+.sl{
+  font-family:'DM Mono',monospace;
+  font-size:0.72rem;
+  color:var(--green);
+  letter-spacing:1.6px;
+  text-transform:uppercase;
+  margin-bottom:8px
+}
+
+.st2{
+  font-size:clamp(1.55rem,2.8vw,2.1rem);
+  font-weight:600;
+  letter-spacing:-0.9px;
+  margin-bottom:5px;
+  color:var(--white)
+}
+
+.sd{
+  font-size:0.89rem;
+  color:var(--muted);
+  max-width:560px
+}
+
+.sh{
+  margin-bottom:30px
+}
+
+/* ABOUT */
+.ag{
+  display:grid;
+  grid-template-columns:1.1fr 0.9fr;
+  gap:18px
+}
+
+.card{
+  background:var(--bg2);
+  border:1px solid var(--border);
+  border-radius:var(--rl);
+  padding:26px 28px
+}
+
+.card p{
+  font-size:0.9rem;
+  color:var(--muted);
+  line-height:1.72
+}
+
+.card p+p{margin-top:12px}
+
+.fl{
+  list-style:none;
+  display:flex;
+  flex-direction:column;
+  gap:10px
+}
+
+.fl li{
+  display:flex;
+  align-items:flex-start;
+  gap:10px;
+  padding:12px 14px;
+  background:var(--bg3);
+  border:1px solid var(--border);
+  border-radius:var(--r);
+  font-size:0.86rem;color:var(--muted);
+  line-height:1.55
+}
+
+.fi{
+  width:26px;
+  height:26px;
+  flex-shrink:0;
+  background:var(--green-p);
+  border:1px solid var(--green-b);
+  border-radius:8px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:0.72rem;
+  margin-top:1px
+}
+
+.fl strong{color:var(--white);
+  font-weight:600
+}
+
+/* STACK */
+.sg{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px
+}
+
+.sk{
+  background:var(--bg2);
+  border:1px solid var(--border);
+  border-radius:var(--rl);
+  padding:20px 22px
+}
+
+.sk h4{
+  font-size:0.73rem;
+  font-weight:600;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  color:var(--hint);
+  margin-bottom:12px;
+  border-bottom:1px solid var(--border);
+  padding-bottom:10px
+}
+
+.tags{
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px
+}
+
+.tag{
+  font-size:0.79rem;
+  font-weight:500;
+  padding:4px 11px;
+  border-radius:999px;
+  background:var(--bg3);
+  border:1px solid var(--border);
+  color:#b8b5b0
+}
+
+/* PROJECTS */
+.pg{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:18px
+}
+
+.proj{
+  background:var(--bg2);
+  border:1px solid var(--border);
+  border-radius:var(--rl);
+  overflow:hidden;
+  transition:transform 0.2s,border-color 0.2s
+}
+
+.proj:hover{
+  transform:translateY(-4px);
+  border-color:var(--border-h)
+}
+
+.ps{position:relative;
+  height:215px;
+  background:var(--bg3);
+  border-bottom:1px solid var(--border);
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center
+}
+
+.ps img{
+  position:absolute;
+  inset:0;width:100%;
+  height:100%;
+  object-fit:cover;
+  display:none
+}
+
+.ps img.active{
+  display:block
+}
+
+.pp{
+  font-family:'DM Mono',monospace;
+  font-size:0.72rem;
+  letter-spacing:1.2px;
+  text-transform:uppercase;
+  color:#2a2a2a
+}
+
+.sbn{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  background:rgba(0,0,0,0.7);
+  border:1px solid var(--border);
+  color:var(--text);
+  width:28px;
+  height:28px;
+  border-radius:50%;
+  cursor:pointer;
+  font-size:0.75rem;
+  z-index:2;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition:background 0.15s
+}
+
+.sbn:hover{
+  background:rgba(0,0,0,0.9)
+}
+
+.sbn.p{
+  left:8px
+}
+
+.sbn.n{
+  right:8px
+}
+
+.pb{
+  padding:20px 22px
+}
+.pt{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:9px
+}
+
+.pt h3{
+  font-size:1rem;
+  font-weight:600;
+  letter-spacing:-0.3px;
+  color:var(--white)
+}
+
+.pty{
+  font-size:0.72rem;
+  font-weight:500;
+  padding:3px 10px;
+  border-radius:999px;
+  background:var(--green-p);
+  color:var(--green);
+  border:1px solid var(--green-b);
+  white-space:nowrap;
+  flex-shrink:0;
+  margin-top:2px
+}
+
+.pdesc{
+  font-size:0.855rem;
+  color:var(--muted);
+  line-height:1.65;
+  margin-bottom:13px
+}
+
+.ptech{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  margin-bottom:14px
+}
+
+.pl{
+  font-size:0.83rem;
+  font-weight:500;
+  color:var(--green);
+  display:inline-flex;
+  align-items:center;
+  gap:3px;
+  transition:color 0.15s;
+  font-family:'DM Mono',monospace
+}
+
+.pl::after{
+  content:'↗';
+  font-size:0.72rem;
+  opacity:0.6
+}
+
+.pl:hover{
+  color:#86efac
+}
+
+/* CONTACT */
+.cw{background:var(--bg2);
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:44px 48px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:30px;
+  position:relative;
+  overflow:hidden
+}
+
+.cw::before{
+  content:'';
+  position:absolute;
+  top:-60px;right:-60px;
+  width:260px;
+  height:260px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(74,222,128,0.06),transparent 70%);
+  pointer-events:none
+}
+
+.cw h2{
+  font-size:clamp(1.3rem,2.4vw,1.9rem);
+  color:var(--white);
+  font-weight:600;
+  letter-spacing:-0.6px;
+  margin-bottom:8px
+}
+
+.cw p{
+  font-size:0.87rem;
+  color:var(--muted);
+  max-width:460px
+}
+
+.cpls{
+  display:flex;
+  flex-wrap:wrap;
+  gap:9px;
+  flex-shrink:0
+}
+
+.cp{
+  padding:9px 18px;
+  border-radius:var(--r);
+  font-size:0.84rem;
+  font-weight:500;
+  background:transparent;
+  border:1px solid var(--border);
+  color:var(--text);
+  transition:all 0.18s
+}
+
+.cp:hover{
+  border-color:var(--green);
+  color:var(--green)
+}
+
+footer{
+  padding:28px 0 42px;
+  text-align:center;
+  font-size:0.81rem;
+  color:var(--hint)
+}
+
+@media(max-width:1024px){
+  .hg,.ag,.sg{grid-template-columns:1fr}
+  .pg{grid-template-columns:1fr}
+  .mets{grid-template-columns:1fr}
+  .cw{flex-direction:column;align-items:flex-start}
+  .proj.full{max-width:100%!important}
+}
+
+@media(max-width:720px){
+  .nl{display:none}
+  .hero{padding:52px 0 40px}
+  .cw{padding:28px 24px}
+  .co{font-size:0.72rem}
+}
+
+</style>
 </head>
 <body>
 
-  <div class="nav-wrap">
-    <div class="container">
-      <nav class="glass">
-        <div class="brand">Jasper<span>Canon</span></div>
-        <div class="nav-links">
-          <a href="#about">About</a>
-          <a href="#stack">Tech Stack</a>
-          <a href="#projects">Projects</a>
-          <a href="#contact">Contact</a>
-        </div>
-      </nav>
+<nav class="nav">
+  <div class="w ni">
+    <div class="brand">Jasper <b>Canon</b></div>
+    <div class="nl">
+      <a href="#about">About</a>
+      <a href="#stack">Stack</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
     </div>
   </div>
+</nav>
 
-  <header class="hero">
-    <div class="container hero-grid">
-      <div class="hero-main glass">
-        <div class="eyebrow">Focused on building real-world systems</div>
-        <h1>Building systems that feel <span class="grad">practical, clean, and professional.</span></h1>
-        <p class="hero-role">Software Developer | Zoho Developer</p>
-        <p class="hero-role">Java • Web Development • COBOL</p>
-        <p class="hero-desc">
-        I build business automation solutions, web applications, and backend systems using Java, Zoho, and modern web technologies focused on efficiency, usability, and real-world impact.
-        </p>
-
-        <div class="hero-actions">
-          <a href="#projects" class="btn btn-primary">View Projects</a>
-          <a href="#contact" class="btn btn-secondary">Contact Me</a>
-        </div>
-
-        <div class="hero-metrics">
-          <div class="metric">
-            <h3>4 Years</h3>
-            <p>Software development & system experience</p>
-          </div>
-          <div class="metric">
-            <h3>PHP / Java / COBOL</h3>
-            <p>HTML, CSS, JavaScript & backend development</p>
-          </div>
-          <div class="metric">
-            <h3>Zoho</h3>
-            <p>Business automation, CRM, and workflow systems</p>
-          </div>
-        </div>
+<header class="hero">
+  <div class="w hg">
+    <div>
+      <div class="badge"><span class="bd"></span>Open to opportunities</div>
+      <h1>Building systems that are<br><em>practical, clean,</em><br>and professional.</h1>
+      <p class="role">Software Developer · Zoho Developer · Java · Web Development · COBOL</p>
+      <p class="hdesc">I build business automation solutions, web applications, and backend systems using Java, Zoho, and modern web technologies — focused on efficiency, usability, and real-world impact.</p>
+      <div class="cta">
+        <a href="#projects" class="btn bs">View Projects</a>
+        <a href="#contact" class="btn bg">Contact Me</a>
       </div>
-
-      <div class="hero-side glass">
-        <div class="code-box">
-          <div class="code-top">
-            <span class="dot"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
-          </div>
-          <div class="code-content">
-public class Dev {
-    public static void main(String[] args) {
-        System.out.println("Jasper John Carlo Canon");
-        System.out.println("Software Developer");
-        System.out.println("Stack: Java, PHP, MySQL, Zoho");
-        System.out.println("Focus: Automation & Web Systems");
-        System.out.println("Build something useful.");
-    }
-}
-          </div>
-        </div>
-
-        <div class="mini-card">
-          <h3>What I bring</h3>
-          <p>
-            A balanced profile across web development, automation, and system logic with projects that show both technical execution and practical business value.
-          </p>
-        </div>
+      <div class="mets">
+        <div class="met"><strong>4 Years</strong><span>Development experience</span></div>
+        <div class="met"><strong>Java · PHP · COBOL</strong><span>Backend &amp; programming</span></div>
+        <div class="met"><strong>Zoho Suite</strong><span>Automation &amp; CRM systems</span></div>
       </div>
     </div>
-  </header>
 
-  <section id="about" class="section">
-    <div class="container">
-      <div class="section-head">
-        <div>
-          <h2 class="section-title">About Me</h2>
-          <p class="section-sub">A concise profile that shows both technical background and real-world application work.</p>
+    <!-- DELUGE CODE CARD -->
+    <div>
+      <div class="cc">
+        <div class="cb">
+          <div class="cds"><div class="cd"></div><div class="cd"></div><div class="cd"></div></div>
+          <span class="cf">developer_profile.dg</span>
         </div>
+        <div class="co"><span class="cm">// Developer Profile — Deluge Script</span>
+
+<span class="var">name</span> <span class="op">=</span> <span class="st">"Jasper John Carlo Canon"</span><span class="op">;</span>
+<span class="var">role</span> <span class="op">=</span> <span class="st">"Software Developer"</span><span class="op">;</span>
+
+<span class="var">stack</span> <span class="op">=</span> <span class="br">{</span><span class="st">"Java"</span><span class="op">,</span> <span class="st">"PHP"</span><span class="op">,</span> <span class="st">"MySQL"</span><span class="op">,</span> <span class="st">"Zoho"</span><span class="br">}</span><span class="op">;</span>
+<span class="var">focus</span> <span class="op">=</span> <span class="st">"Automation &amp; Web Systems"</span><span class="op">;</span>
+
+<span class="kw">for each</span> <span class="var">tech</span> <span class="kw">in</span> <span class="var">stack</span>
+<span class="br">{</span>
+  <span class="fn">info</span> <span class="st">"Stack: "</span> <span class="op">+</span> <span class="var">tech</span><span class="op">;</span>
+<span class="br">}</span>
+
+<span class="fn">info</span> <span class="st">"Focus: "</span> <span class="op">+</span> <span class="var">focus</span><span class="op">;</span>
+<span class="fn">info</span> <span class="st">"Build something useful."</span><span class="op">;</span></div>
       </div>
-
-      <div class="about-grid">
-        <div class="about-card glass">
-          <p>
-            Software Developer with experience in Java, COBOL, web development, and Zoho based business automation. I build backend systems, internal tools, and CRM workflows that improve business processes and efficiency.
-            Skilled in developing practical and scalable solutions, I focus on clean architecture, usability, and real world impact delivering systems that solve problems and add measurable value to teams and users.
-          <br>
-          <p>
-            I enjoy creating solutions that are not only functional, but also clean, efficient, and easy to use. My goal is to build software that solves real problems and adds measurable value to users and teams.
-          </p>
-        </div>
-
-        <div class="focus-card glass">
-          <ul>
-            <li><strong>Web Development:</strong> PHP, MySQL, and JavaScript-based applications and systems</li>
-            <li><strong>Automation:</strong> Zoho Creator, Deluge scripting, CRM workflows, and process automation</li>
-            <li><strong>Backend & Programming:</strong> Java and COBOL, with strong foundation in system logic and backend development</li>
-            <li><strong>Approach:</strong> Building clean, maintainable, and business-focused systems</li>
-          </ul>
-        </div>
+      <div class="wc">
+        <h4>What I bring</h4>
+        <p>A balanced profile across web development, automation, and system logic — with projects that show both technical execution and practical business value.</p>
       </div>
     </div>
-  </section>
+  </div>
+</header>
 
-  <section id="stack" class="section">
-    <div class="container">
-      <div class="section-head">
-        <div>
-          <h2 class="section-title">Tech Stack</h2>
-          <p class="section-sub">Core technologies and tools I use to build applications, automation, and systems.</p>
-        </div>
+<hr class="dv"/>
+
+<section id="about">
+  <div class="w">
+    <div class="sh">
+      <p class="sl">01 — About</p>
+      <h2 class="st2">About Me</h2>
+      <p class="sd">Technical background and real-world application work, in brief.</p>
+    </div>
+    <div class="ag">
+      <div class="card">
+        <p>Software Developer with experience in Java, COBOL, web development, and Zoho-based business automation. I build backend systems, internal tools, and CRM workflows that improve business processes and efficiency.</p>
+        <p>I enjoy creating solutions that are not only functional, but also clean, efficient, and easy to use. My goal is to build software that solves real problems and adds measurable value to users and teams.</p>
       </div>
-
-      <div class="stack-grid">
-        <div class="stack-card glass">
-          <h3>Frontend</h3>
-          <div class="stack-list">
-            <span class="tag">HTML</span>
-            <span class="tag">CSS</span>
-            <span class="tag">JavaScript</span>
-          </div>
-        </div>
-
-        <div class="stack-card glass">
-          <h3>Backend</h3>
-          <div class="stack-list">
-            <span class="tag">PHP</span>
-            <span class="tag">Java</span>
-            <span class="tag">COBOL</span>
-          </div>
-        </div>
-
-        <div class="stack-card glass">
-          <h3>Database</h3>
-          <div class="stack-list">
-            <span class="tag">MySQL</span>
-          </div>
-        </div>
-
-        <div class="stack-card glass">
-          <h3>Tools & Platforms</h3>
-          <div class="stack-list">
-            <span class="tag">Zoho Creator</span>
-            <span class="tag">Zoho CRM</span>
-            <span class="tag">Zoho Flow</span>
-            <span class="tag">Deluge Script</span>
-            <span class="tag">GitHub</span>
-            <span class="tag">VS Code</span>
-          </div>
-        </div>
+      <div class="card" style="padding:22px 24px">
+        <ul class="fl">
+          <li><div class="fi">🌐</div><div><strong>Web Development</strong> — PHP, MySQL, and JavaScript-based applications</div></li>
+          <li><div class="fi">⚙️</div><div><strong>Automation</strong> — Zoho Creator, Deluge scripting, CRM workflows</div></li>
+          <li><div class="fi">💻</div><div><strong>Backend &amp; Programming</strong> — Java and COBOL with strong system logic</div></li>
+          <li><div class="fi">🎯</div><div><strong>Approach</strong> — Clean, maintainable, business-focused systems</div></li>
+        </ul>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section id="projects" class="section">
-    <div class="container">
-      <div class="section-head">
-        <div>
-          <h2 class="section-title">Featured Projects</h2>
-          <p class="section-sub">Selected work that highlights web development, automation, and programming fundamentals.</p>
+<hr class="dv"/>
+
+<section id="stack">
+  <div class="w">
+    <div class="sh">
+      <p class="sl">02 — Stack</p>
+      <h2 class="st2">Tech Stack</h2>
+      <p class="sd">Core technologies and tools I use to build applications, automation, and systems.</p>
+    </div>
+    <div class="sg">
+      <div class="sk"><h4>Frontend</h4><div class="tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span></div></div>
+      <div class="sk"><h4>Backend</h4><div class="tags"><span class="tag">PHP</span><span class="tag">Java</span><span class="tag">COBOL</span></div></div>
+      <div class="sk"><h4>Database</h4><div class="tags"><span class="tag">MySQL</span><span class="tag">PHPMyAdmin</span></div></div>
+      <div class="sk"><h4>Tools &amp; Platforms</h4><div class="tags"><span class="tag">Zoho Creator</span><span class="tag">Zoho CRM</span><span class="tag">Zoho Flow</span><span class="tag">Zoho Books</span><span class="tag">Zoho Projects</span><span class="tag">Deluge Script</span><span class="tag">GitHub</span><span class="tag">VS Code</span></div></div>
+    </div>
+  </div>
+</section>
+
+<hr class="dv"/>
+
+<section id="projects">
+  <div class="w">
+    <div class="sh">
+      <p class="sl">03 — Work</p>
+      <h2 class="st2">Featured Projects</h2>
+      <p class="sd">Selected work highlighting web development, automation, and programming fundamentals.</p>
+    </div>
+    <div class="pg">
+
+      <article class="proj">
+        <div class="ps" id="s-mt">
+          <img src="money-tracker-1.PNG" class="mt active" alt=""/>
+          <img src="money-tracker-2.PNG" class="mt" alt=""/>
+          <img src="money-tracker-3.PNG" class="mt" alt=""/>
+          <img src="money-tracker-4.PNG" class="mt" alt=""/>
+          <img src="money-tracker-5.PNG" class="mt" alt=""/>
+          <span class="pp">money-tracker</span>
+          <button class="sbn p" onclick="slide('mt',-1)">&#8249;</button>
+          <button class="sbn n" onclick="slide('mt',1)">&#8250;</button>
         </div>
+        <div class="pb">
+          <div class="pt"><h3>Money Tracker</h3><span class="pty">Web App</span></div>
+          <p class="pdesc">A financial tracking web application for managing savings, debts, bills, and salary. Features a configurable 2-week cutoff-based budget allowance for structured expense tracking and financial discipline.</p>
+          <div class="ptech"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span></div>
+          <a class="pl" href="https://jaspercanon11.github.io/Money_Tracker/" target="_blank">github.com/JasperCanon11</a>
+        </div>
+      </article>
+
+      <article class="proj">
+        <div class="ps" id="s-zoho">
+          <img src="zoho-1.PNG" class="zoho active" alt=""/>
+          <img src="zoho-2.PNG" class="zoho" alt=""/>
+          <img src="zoho-3.PNG" class="zoho" alt=""/>
+          <img src="zoho-4.PNG" class="zoho" alt=""/>
+          <img src="zoho-5.PNG" class="zoho" alt=""/>
+          <img src="zoho-6.PNG" class="zoho" alt=""/>
+          <img src="zoho-7.PNG" class="zoho" alt=""/>
+          <span class="pp">zoho-creator-apps</span>
+          <button class="sbn p" onclick="slide('zoho',-1)">&#8249;</button>
+          <button class="sbn n" onclick="slide('zoho',1)">&#8250;</button>
+        </div>
+        <div class="pb">
+          <div class="pt"><h3>Zoho Creator Apps</h3><span class="pty">Zoho Creator</span></div>
+          <p class="pdesc">Internal business applications for the Sales team — travel itinerary and cash advance modules. Integrated reports into Zoho CRM via Zoho Flow for centralized data management and improved operational efficiency.</p>
+          <div class="ptech"><span class="tag">Zoho Creator</span><span class="tag">Zoho CRM</span><span class="tag">Zoho Flow</span><span class="tag">Deluge Script</span></div>
+          <a class="pl" href="https://jaspercanon11.github.io/Zoho-Project/" target="_blank">github.com/JasperCanon11</a>
+        </div>
+      </article>
+
+      <article class="proj">
+        <div class="ps" id="s-crm">
+          <img src="crm.png" class="crm active" alt=""/>
+          <img src="books.png" class="crm" alt=""/>
+          <img src="demo.png" class="crm" alt=""/>
+          <img src="flow.png" class="crm" alt=""/>
+          <span class="pp">zoho-crm-automation</span>
+          <button class="sbn p" onclick="slide('crm',-1)">&#8249;</button>
+          <button class="sbn n" onclick="slide('crm',1)">&#8250;</button>
+        </div>
+        <div class="pb">
+          <div class="pt"><h3>Zoho CRM Automation</h3><span class="pty">Automation</span></div>
+          <p class="pdesc">End-to-end automation triggered when a Deal is marked Closed Won in Zoho CRM. Automatically creates an invoice in Zoho Books, generates a project in Zoho Projects, and updates the CRM record — eliminating manual work across the sales-to-delivery lifecycle.</p>
+          <div class="ptech"><span class="tag">Zoho CRM</span><span class="tag">Zoho Books</span><span class="tag">Zoho Flow</span><span class="tag">Zoho Projects</span></div>
+          <a class="pl" href="https://jaspercanon11.github.io/Zoho-Automation/" target="_blank">github.com/JasperCanon11</a>
+        </div>
+      </article>
+
+      <article class="proj">
+        <div class="ps" id="s-java">
+          <img src="java-1.PNG" class="java active" alt=""/>
+          <img src="java-2.PNG" class="java" alt=""/>
+          <img src="java-3.PNG" class="java" alt=""/>
+          <img src="java-4.PNG" class="java" alt=""/>
+          <img src="java-5.PNG" class="java" alt=""/>
+          <span class="pp">attendance-system</span>
+          <button class="sbn p" onclick="slide('java',-1)">&#8249;</button>
+          <button class="sbn n" onclick="slide('java',1)">&#8250;</button>
+        </div>
+        <div class="pb">
+          <div class="pt"><h3>Attendance System</h3><span class="pty">Java</span></div>
+          <p class="pdesc">A Java console-based application for recording attendance, demonstrating programming logic, input handling, and structured output flow.</p>
+          <div class="ptech"><span class="tag">Java</span></div>
+          <a class="pl" href="https://jaspercanon11.github.io/Java/" target="_blank">github.com/JasperCanon11</a>
+        </div>
+      </article>
+
+      <article class="proj full" style="grid-column:1/-1;max-width:calc(50% - 9px)">
+        <div class="ps" id="s-php">
+          <img src="php-1.PNG" class="php active" alt=""/>
+          <img src="php-2.PNG" class="php" alt=""/>
+          <img src="php-3.PNG" class="php" alt=""/>
+          <span class="pp">php-borrowing-system</span>
+          <button class="sbn p" onclick="slide('php',-1)">&#8249;</button>
+          <button class="sbn n" onclick="slide('php',1)">&#8250;</button>
+        </div>
+        <div class="pb">
+          <div class="pt"><h3>PHP Web Project</h3><span class="pty">System</span></div>
+          <p class="pdesc">A laboratory inventory and borrowing management system with admin authentication, stock monitoring, and borrowing record tracking — featuring a centralized dashboard for item and user management.</p>
+          <div class="ptech"><span class="tag">PHP</span><span class="tag">PHPMyAdmin</span><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span></div>
+          <a class="pl" href="https://jaspercanon11.github.io/PHP-Borrowing_Item/" target="_blank">github.com/JasperCanon11</a>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<hr class="dv"/>
+
+<section id="contact">
+  <div class="w">
+    <div class="cw">
+      <div>
+        <h2>Let's Build Efficient Systems That Matter</h2>
+        <p>Open to full-time roles, freelance projects, and collaborations in web development and automation.</p>
       </div>
-
-      <div class="projects-grid">
-        <article class="project-card glass">
-          <div class="project-image-slider">
-  <button class="slider-btn prev" onclick="changeSlide('mt', -1)">❮</button>
-
-  <img src="money-tracker-1.PNG" class="mt active">
-  <img src="money-tracker-2.PNG" class="mt">
-  <img src="money-tracker-3.PNG" class="mt">
-  <img src="money-tracker-4.PNG" class="mt">
-  <img src="money-tracker-5.PNG" class="mt">
-
-  <button class="slider-btn next" onclick="changeSlide('mt', 1)">❯</button>
-</div>
-          <div class="project-body">
-            <div class="project-top">
-              <h3>Money Tracker</h3>
-              <span class="project-type">Web App</span>
-            </div>
-            <p>
-              A financial tracking web application that allows users to manage savings, debts, bills, and salary in one system. It features a configurable 2-week budget allowance (cutoff-based), enabling users to monitor spending, control expenses, and maintain financial discipline through structured tracking.
-            </p>
-            <div class="project-tech">
-              <span class="tag">HTML</span>
-              <span class="tag">CSS</span>
-              <span class="tag">JavaScript</span>
-            </div>
-            <div class="project-links">
-              <a href="https://jaspercanon11.github.io/Money_Tracker/" target="_blank">GitHub</a>
-            </div>
-          </div>
-        </article>
-
-        <article class="project-card glass">
-            <div class="project-image-slider">
-  <button class="slider-btn prev" onclick="changeSlide('zoho', -1)">❮</button>
-
-  <img src="zoho-1.PNG" class="zoho active">
-  <img src="zoho-2.PNG" class="zoho">
-  <img src="zoho-3.PNG" class="zoho">
-  <img src="zoho-4.PNG" class="zoho">
-  <img src="zoho-5.PNG" class="zoho">
-  <img src="zoho-6.PNG" class="zoho">
-  <img src="zoho-7.PNG" class="zoho">
-
-  <button class="slider-btn next" onclick="changeSlide('zoho', 1)">❯</button>
-</div>
-          <div class="project-body">
-            <div class="project-top">
-              <h3>Zoho Projects</h3>
-              <span class="project-type">Zoho Creator</span>
-            </div>
-            <p>
-            Developed internal business applications using Zoho Creator for the Sales team, including travel itinerary and cash advance. Implemented workflow logic and integrated reports into Zoho CRM using Zoho Flow to ensure centralized data management and improved operational efficiency.
-            </p>
-            <div class="project-tech">
-              <span class="tag">Zoho Creator</span>
-              <span class="tag">Zoho CRM</span>
-              <span class="tag">Zoho Flow</span>
-              <span class="tag">Deluge Script</span>
-            </div>
-            <div class="project-links">
-              <a href="https://jaspercanon11.github.io/Zoho-Project/" target="_blank">GitHub</a>
-            </div>
-          </div>
-        </article>
-
-         <article class="project-card glass">
-            <div class="project-image-slider">
-  <button class="slider-btn prev" onclick="changeSlide('crm', -1)">❮</button>
-
-  <img src="crm.png" class="crm active">
-  <img src="books.png" class="crm">
-  <img src="demo.png" class="crm">
-  <img src="flow.png" class=" crm">
-
-
-  <button class="slider-btn next" onclick="changeSlide('crm', 1)">❯</button>
-</div>
-          <div class="project-body">
-            <div class="project-top">
-              <h3>Zoho CRM Automation</h3>
-              <span class="project-type">Automation</span>
-            </div>
-            <p>
-            I developed an end-to-end automation workflow using the Zoho ecosystem to streamline the sales-to-delivery lifecycle of a business process.
-
-The system is triggered when a Deal in Zoho CRM is marked as Closed Won. Using Zoho Flow, the workflow automatically orchestrates multiple systems to eliminate manual work and ensure process consistency.
-
-Once triggered, the automation performs the following actions:
-
-Creates an invoice in Zoho Books for billing and financial processing
-Generates a project in Zoho Projects for task execution and delivery tracking
-Updates the CRM Deal record with billing and project status for visibility and reporting
-
-This implementation demonstrates my ability to design and build cross-platform automation using Zoho CRM, Zoho Books, Zoho Projects, and Zoho Flow, with a focus on process optimization, system integration, and operational efficiency.
-            </p>
-            <div class="project-tech">
-              <span class="tag">Zoho Books</span>
-              <span class="tag">Zoho CRM</span>
-              <span class="tag">Zoho Flow</span>
-              <span class="tag">Zoho Project</span>
-            </div>
-            <div class="project-links">
-              <a href="https://jaspercanon11.github.io/Zoho-Automation/" target="_blank">GitHub</a>
-            </div>
-          </div>
-        </article>
-
-        <article class="project-card glass">
-            <div class="project-image-slider">
-  <button class="slider-btn prev" onclick="changeSlide('java', -1)">❮</button>
-
-  <img src="java-1.PNG" class="java active">
-  <img src="java-2.PNG" class="java">
-  <img src="java-3.PNG" class="java">
-  <img src="java-4.PNG" class="java">
-  <img src="java-5.PNG" class="java">
-
-  <button class="slider-btn next" onclick="changeSlide('java', 1)">❯</button>
-</div>
-          <div class="project-body">
-            <div class="project-top">
-              <h3>Attendance System</h3>
-              <span class="project-type">Java</span>
-            </div>
-            <p>
-              A simple Java console-based application for recording attendance, designed to demonstrate basic programming logic, input handling, and output flow.
-            </p>
-            <div class="project-tech">
-              <span class="tag">Java</span>
-            </div>
-            <div class="project-links">
-              <a href="https://jaspercanon11.github.io/Java/" target="_blank">GitHub</a>
-            </div>
-          </div>
-        </article>
-
-        <article class="project-card glass">
-           <div class="project-image-slider">
-  <button class="slider-btn prev" onclick="changeSlide('php', -1)">❮</button>
-
-  <img src="php-1.PNG" class="php active">
-  <img src="php-2.PNG" class="php">
-  <img src="php-3.PNG" class="php">
-
-  <button class="slider-btn next" onclick="changeSlide('php', 1)">❯</button>
-</div>
-         
-          <div class="project-body">
-            <div class="project-top">
-              <h3>PHP Web Project</h3>
-              <span class="project-type">System</span>
-            </div>
-            <p>
-              A laboratory inventory and borrowing management system developed using PHP and PHPMyAdmin, featuring admin authentication, stock monitoring, and borrowing record tracking. The system enables administrators to manage item inventory, control stock levels, and monitor borrowed and returned items through a centralized dashboard.
-            </p>
-            <div class="project-tech">
-              <span class="tag">PHP</span>
-              <span class="tag">PHPMyAdmin</span>
-              <span class="tag">HTML</span>
-              <span class="tag">CSS</span>
-              <span class="tag">JavaScript</span>
-            </div>
-            <div class="project-links">
-              <a href="https://jaspercanon11.github.io/PHP-Borrowing_Item/" target="_blank">GitHub</a>
-            </div>
-          </div>
-        </article>
+      <div class="cpls">
+        <a class="cp" href="https://mail.google.com/mail/?view=cm&fs=1&to=jaspercanon11@gmail.com&su=Software%20Developer%20Opportunity" target="_blank">Email Me</a>
+        <a class="cp" href="https://github.com/JasperCanon11" target="_blank">GitHub</a>
+        <a class="cp" href="https://www.linkedin.com/in/jasper-john-carlo-briones-canon-b2625422a/" target="_blank">LinkedIn</a>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section id="contact" class="section">
-    <div class="container">
-      <div class="contact-card glass">
-        <div class="contact-text">
-          <h2>Let’s Build Efficient Systems That Matter</h2>
-        </div>
-
-        <div class="contact-links">
-          <a class="contact-pill" 
-   href="https://mail.google.com/mail/?view=cm&fs=1&to=jaspercanon11@gmail.com&su=Software%20Developer%20Opportunity" 
-   target="_blank">
-  Email Me
-</a>
-          <a class="contact-pill" href="https://github.com/JasperCanon11" target="_blank">GitHub</a>
-          <a class="contact-pill" href="https://www.linkedin.com/in/jasper-john-carlo-briones-canon-b2625422a/" target="_blank">LinkedIn</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <footer>
-    © Jasper John Carlo Canon. Designed and built for a professional developer portfolio.
-  </footer>
+<footer>© Jasper John Carlo Canon — Software Developer</footer>
 
 <script>
-const sliders = {};
-
-function changeSlide(name, dir) {
-  const slides = document.querySelectorAll("." + name);
-
-  if (!sliders[name]) sliders[name] = 0;
-
-  slides[sliders[name]].classList.remove("active");
-
-  sliders[name] += dir;
-
-  if (sliders[name] >= slides.length) sliders[name] = 0;
-  if (sliders[name] < 0) sliders[name] = slides.length - 1;
-
-  slides[sliders[name]].classList.add("active");
+const st={};
+function slide(name,dir){
+  const imgs=document.querySelectorAll('.'+name);
+  if(!imgs.length)return;
+  if(st[name]===undefined)st[name]=0;
+  imgs[st[name]].classList.remove('active');
+  st[name]=(st[name]+dir+imgs.length)%imgs.length;
+  imgs[st[name]].classList.add('active');
+  const ph=imgs[0].closest('.ps')?.querySelector('.pp');
+  if(ph)ph.style.display='none';
 }
+document.querySelectorAll('.ps img').forEach(img=>{
+  const hide=()=>{
+    const ph=img.closest('.ps')?.querySelector('.pp');
+    if(ph)ph.style.display='none';
+  };
+  img.addEventListener('load',hide);
+  if(img.complete&&img.naturalWidth)hide();
+});
 </script>
-
 </body>
 </html>
